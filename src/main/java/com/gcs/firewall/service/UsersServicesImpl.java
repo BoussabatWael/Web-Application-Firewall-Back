@@ -122,7 +122,6 @@ public class UsersServicesImpl implements UsersServices{
 	filenameModif=tab[0]+"_"+System.currentTimeMillis()+"."+tab[1];
 	File f=new
 	File(System.getProperty("user.home")+"/OneDrive/Bureau/WAEL/FwSystem/src/assets/images/uploads/"+filenameModif);
-	//File("/home/firewal/public_html/assets/images/uploads/"+filenameModif);
 	FileOutputStream fos=new FileOutputStream(f);
 	fos.write(file.getBytes());
 	fos.close();
