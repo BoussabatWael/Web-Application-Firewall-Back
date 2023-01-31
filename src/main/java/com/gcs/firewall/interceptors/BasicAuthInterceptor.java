@@ -39,11 +39,6 @@ public class BasicAuthInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		
-		 	//FirewallScript.list(Long.parseLong("8"), "list");
-			//return false;
-
-
 
 		String meth = request.getMethod();
 		route = request.getRequestURI();
@@ -60,13 +55,11 @@ public class BasicAuthInterceptor extends HandlerInterceptorAdapter{
 			    	if(checkAppKeyExistance(key)) {
 			    		return true;
 			    	}else {
-						//throw new CustomException("Invalid key !");	
 						return false;
 
 			    	}
 			    }
 			    else if(TARGET.equals("user")) {
-			    	//System.out.println(route+" "+key);
 					String res = checkUserKeyExistance(key);
 					if(!res.equals("")) {
 						return true;
@@ -75,23 +68,18 @@ public class BasicAuthInterceptor extends HandlerInterceptorAdapter{
 						return false;	
 					}
 			    }else if(TARGET.equals("other")) {
-						//System.out.println(authHeader);
 							String res = checkKeyExistance(key);
-							//System.out.println(res);
 							if(!res.equals("")) {
 								return true;
 			
 							}else {
-								//return false;
 								throw new CustomException("Something went wrong !");
 							}
 					}
 					else {
-						//return false;
 						throw new CustomException("Invalid username or password !");
 					}
 			}
-			//return false;
 			throw new CustomException("Invalid username or password !");
 		}else {
 			return true;
@@ -104,7 +92,6 @@ public class BasicAuthInterceptor extends HandlerInterceptorAdapter{
 		try {
 			Class.forName("com.mysql.jdbc.Driver"); 
 			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/firewall_module","root","");
-			//Connection con=DriverManager.getConnection("jdbc:mysql://144.202.71.141:3306/firewall_module","firewall_module","Manager@2022!Firewall");
 			stmt=con.createStatement(); 
 			rs=stmt.executeQuery("SELECT id,account_id FROM firewall_users WHERE status IN (1,2,3) AND key_value ='"+apikey+"'");  
 			if(rs.next()) {
@@ -129,7 +116,6 @@ public class BasicAuthInterceptor extends HandlerInterceptorAdapter{
 		try {
 			Class.forName("com.mysql.jdbc.Driver"); 
 			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/firewall_module","root","");
-			//Connection con=DriverManager.getConnection("jdbc:mysql://144.202.71.141:3306/firewall_module","firewall_module","Manager@2022!Firewall");
 			Statement stmt=con.createStatement();
 			rs=stmt.executeQuery("SELECT key_value FROM firewall_app_api_keys WHERE key_value ='"+apikey+"'");  
 			if(rs.next()) {
@@ -144,7 +130,6 @@ public class BasicAuthInterceptor extends HandlerInterceptorAdapter{
 		try {
 			Class.forName("com.mysql.jdbc.Driver"); 
 			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/firewall_module","root",""); 
-			//Connection con=DriverManager.getConnection("jdbc:mysql://144.202.71.141:3306/firewall_module","firewall_module","Manager@2022!Firewall");
 			stmt=con.createStatement();  
 			rs=stmt.executeQuery("SELECT * FROM firewall_api_keys WHERE key_value ='"+apikey+"' AND status IN (1,2,3)");  
 			if(rs.next())  {
